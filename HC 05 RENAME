@@ -1,0 +1,38 @@
+/*
+ * HC05 CHANGE NAME TO ANYTHING YOU WANT 
+ * by Blaxckroses
+ *
+ * Pinout:
+ * TRIGGERED PIN --> pin 9
+ * VCC --> Vin
+ * TXD --> pin 10
+ * RXD --> pin 11
+ * GND --> GND
+ *UPLOAD THE CODING WITH YOUR ARDUINO
+ * AT Command : AT+NAME=<new device name>
+ *
+ */
+
+#include <SoftwareSerial.h>
+
+SoftwareSerial BTSerial(10, 11);   // RX AND TX
+
+void setup() 
+{
+  pinMode(9, OUTPUT);
+  digitalWrite(9, HIGH); 
+  Serial.begin(9600);
+  Serial.println("Enter AT commands:");
+  BTSerial.begin(38400);  // DEFAULT SPEED
+}
+
+void loop()
+{
+
+  if (BTSerial.available())
+    Serial.write(BTSerial.read());
+
+
+  if (Serial.available())
+    BTSerial.write(Serial.read());
+}
